@@ -19,10 +19,10 @@ function getPeachStyleSheet() {
 }
 
 function hashString(string: string) {
-  return xxhash.h32(string, 999).toString(16);
+  return "peach-" + xxhash.h32(string, 999).toString(16);
 }
 
-export function peach<C extends PeachCSS>(css: C, selector?: string) {
+export function peach(css: PeachCSS, selector?: string) {
   // Stylesheet
   const stylesheet = getPeachStyleSheet();
 
@@ -41,7 +41,7 @@ export function peach<C extends PeachCSS>(css: C, selector?: string) {
     else nestedRules.push([key, value]);
   }
 
-  const returnSelectorMap = Object.fromEntries(currentRules) as Record<
+  const selectorMap = Object.fromEntries(currentRules) as Record<
     string,
     unknown
   >;
@@ -55,29 +55,51 @@ export function peach<C extends PeachCSS>(css: C, selector?: string) {
   const cssSelector = uniqueSelector + (selector ? `, ${selector}` : "");
   // Finally add the rule
   const cssRule = `${cssSelector} ${ruleString}`;
-  stylesheet.insertRule(cssRule);
+  // For future removal of rule
+  let ruleIndex = stylesheet.insertRule(cssRule, 0);
 
-  returnSelectorMap.toString = () => hash;
+  selectorMap.toString = () => hash;
 
   // Parse nested rules
   for (const [key, css] of nestedRules) {
     // Pseudo Rules
     if (key.startsWith(":"))
-      returnSelectorMap[key] = peach(css, `${uniqueSelector}${key}`);
+      selectorMap[key] = peach(css, `${uniqueSelector}${key}`);
     else if (HTML_TAGS.includes(key as typeof HTML_TAGS[number]))
-      returnSelectorMap[key] = peach(css, `${uniqueSelector} ${key}`);
+      selectorMap[key] = peach(css, `${uniqueSelector} ${key}`);
     else throw new Error("Invalid nested selector");
   }
 
+  const selectorMapProxy = new Proxy(selectorMap, {
+    set: (target, property: string, value) => {
+      // Make changes to the stylesheet
+      currentRules.push([property, value]);
+      stylesheet.removeRule(ruleIndex);
+      ruleIndex = stylesheet.insertRule(
+        `${cssSelector} ${stringifyRules(currentRules)}`,
+        0
+      );
+
+      // Reflect the changes in users copy too
+      target[property] = value;
+      return true;
+    },
+  });
+
   // Return our selector map
-  return returnSelectorMap as C;
+  return selectorMapProxy as any;
 }
 
 function stringifyRules(rules: [string, string | string[]][]) {
   return (
     "{\n" +
     rules
-      .map(([key, value]) => ["  " + snakeCase(key), value].join(":"))
+      .map(([key, value]) =>
+        [
+          "  " + snakeCase(key),
+          Array.isArray(value) ? value.join(", ") : value,
+        ].join(":")
+      )
       .join(";\n") +
     ";\n" +
     "}"
