@@ -1,5 +1,3 @@
-import xxhash from "xxhashjs";
-
 import { HTML_TAGS } from "./constants";
 import { PeachCSS } from "./css";
 
@@ -18,8 +16,24 @@ function getPeachStyleSheet() {
   }
 }
 
+/**
+ * FNV1A Hashing function.
+ * {@link https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function Wikipedia Page}
+ *
+ * @param string - String to be hashed
+ */
 function hashString(string: string) {
-  return "peach-" + xxhash.h32(string, 999).toString(16);
+  const FNV_PRIME = 0x01000193;
+  const FNV_OFFSET_BASIS = 0x811c9dc5;
+
+  let hash = FNV_OFFSET_BASIS;
+
+  for (const character of string) {
+    hash ^= character.charCodeAt(0);
+    hash *= FNV_PRIME;
+  }
+
+  return "peach-" + hash.toString(16);
 }
 
 export function peach(css: PeachCSS, selector?: string) {
