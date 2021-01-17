@@ -1,18 +1,26 @@
 {
   "name": "peach",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "type": "module",
+  "main": "./dist/cjs/peach.js",
+  "types": "./dist/cjs/peach.d.ts",
+  "exports": {
+    "import": "./dist/esm/peach.js",
+    "require": "./dist/cjs/peach.js"
+  },
   "files": [
     "./dist"
   ],
   "scripts": {
-    "dev": "yarn tsc -w",
-    "build": "yarn tsc"
+    "dev": "yarn rollup -cw",
+    "build": "yarn rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@wessberg/rollup-plugin-ts": "^1.3.8",
     "csstype": "^3.0.6",
+    "rollup": "^2.36.2",
+    "tslib": "^2.1.0",
     "typescript": "^4.1.3"
   }
 }

@@ -2,8 +2,12 @@
   "extends": "../../tsconfig.json",
 
   "compilerOptions": {
+    "module": "es2020",
+
     "rootDir": "source",
     "outDir": "dist",
-    "declaration": true
+
+    "declaration": true,
+    "sourceMap": true
   }
 }
