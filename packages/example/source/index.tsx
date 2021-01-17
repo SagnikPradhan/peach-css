@@ -1,12 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import p from "./peach";
 
-const styles = p.css({
-  fontFamily: "sans-serif",
-  fontSize: "10rem",
-});
+import { Page } from "./page";
 
-const App = () => <h1 className={styles.className}>Hey there</h1>;
+const App = () => <Page />;
 
 ReactDOM.render(<App />, document.getElementById("root"));
