@@ -1,5 +1,6 @@
 import CSS from "csstype";
 import { ExtendedCSSStyleSheet } from "./extended-css-stylesheet";
+import { PeachPlugin } from "./peach";
 import { PeachCSSType } from "./peach-css-type";
 
 export class PeachCSS<CSSRule> {
@@ -9,19 +10,25 @@ export class PeachCSS<CSSRule> {
 
   private readonly interalCSSSelector: string;
 
+  private readonly plugins: PeachPlugin<unknown>[];
+
   constructor({
     sheet,
     css,
     selector,
+    plugins,
   }: {
     sheet: ExtendedCSSStyleSheet;
     css: PeachCSSType<CSSRule>;
     selector?: string;
+    plugins: PeachPlugin<unknown>[];
   }) {
     this.sheet = sheet;
+    this.plugins = plugins;
 
     const { rules, nestedRules } = this.sortRules(css);
-    const stringifiedRules = this.stringifyRules(rules);
+    const processedRules = this.preprocessRules(rules);
+    const stringifiedRules = this.stringifyRules(processedRules);
     const hash = this.hashString(stringifiedRules);
 
     this.className = "." + hash;
@@ -37,6 +44,7 @@ export class PeachCSS<CSSRule> {
           sheet,
           css: childCSS,
           selector: `${this.interalCSSSelector} > ${childSelector}`,
+          plugins,
         }),
       ])
     );
@@ -59,6 +67,16 @@ export class PeachCSS<CSSRule> {
         rules: {} as CSSRule,
       }
     );
+  }
+
+  private preprocessRules(css: CSSRule): CSS.PropertiesHyphen {
+    let processedCSS = css as CSSRule | CSS.PropertiesHyphen;
+
+    this.plugins.forEach(
+      (plugin) => (processedCSS = plugin.transform(processedCSS))
+    );
+
+    return processedCSS;
   }
 
   private stringifyRules(css: CSS.PropertiesHyphen) {

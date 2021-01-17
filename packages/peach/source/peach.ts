@@ -13,7 +13,7 @@ export class Peach<CSSRule = CSS.PropertiesHyphen> {
   private readonly sheet: ExtendedCSSStyleSheet;
 
   /** Peach CSS Plugins */
-  private readonly plugins = [] as PeachPlugin<never>[];
+  private readonly plugins = [] as PeachPlugin<unknown>[];
 
   constructor(document = window.document) {
     this.sheet = new ExtendedCSSStyleSheet(document);
@@ -27,7 +27,7 @@ export class Peach<CSSRule = CSS.PropertiesHyphen> {
   public addPlugin<PluginCSSRule>(
     plugin: PeachPlugin<PluginCSSRule>
   ): Peach<CSSRule | PluginCSSRule> {
-    this.plugins.push(plugin);
+    this.plugins.push(plugin as PeachPlugin<unknown>);
     return this;
   }
 
@@ -37,7 +37,7 @@ export class Peach<CSSRule = CSS.PropertiesHyphen> {
    * @param css - CSS
    */
   public css(css: CSSRule) {
-    return new PeachCSS({ sheet: this.sheet, css });
+    return new PeachCSS({ sheet: this.sheet, css, plugins: this.plugins });
   }
 }
 
@@ -45,3 +45,6 @@ export class Peach<CSSRule = CSS.PropertiesHyphen> {
 export const peach = (document?: Document) => new Peach(document);
 
 export default peach;
+
+// Also export the plugins
+export * from "./plugins";
