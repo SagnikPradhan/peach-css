@@ -1,6 +1,7 @@
 import CSS from "csstype";
 import { ExtendedCSSStyleSheet } from "./extended-css-stylesheet";
 import { PeachCSS } from "./peach-css";
+import { PeachCSSType } from "./peach-css-type";
 
 /** Peach css plugin */
 export interface PeachPlugin<CSSRule> {
@@ -36,7 +37,7 @@ export class Peach<CSSRule = CSS.PropertiesHyphen> {
    *
    * @param css - CSS
    */
-  public css(css: CSSRule) {
+  public css(css: PeachCSSType<CSSRule>) {
     return new PeachCSS({ sheet: this.sheet, css, plugins: this.plugins });
   }
 }
