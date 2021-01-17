@@ -29,11 +29,11 @@ export class PeachCSS<CSSRule> {
     const { rules, nestedRules } = this.sortRules(css);
     const processedRules = this.preprocessRules(rules);
     const stringifiedRules = this.stringifyRules(processedRules);
-    const hash = this.hashString(stringifiedRules);
 
-    this.className = "." + hash;
-    this.interalCSSSelector =
-      this.className + (selector ? ", " + selector : "");
+    const hash = this.hashString(stringifiedRules);
+    this.className = hash;
+
+    this.interalCSSSelector = "." + hash + (selector ? ", " + selector : "");
 
     this.sheet.addRule(this.interalCSSSelector, stringifiedRules);
 
