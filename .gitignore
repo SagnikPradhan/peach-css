@@ -114,3 +114,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# output files
+packages/peach/esm
+packages/peach/plugins
+packages/peach/utils
+packages/peach/index.d.ts
+packages/peach/index.js
+packages/peach/index.js.map

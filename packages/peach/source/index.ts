@@ -20,6 +20,3 @@ export function peach(doc = document) {
 }
 
 export default peach;
-
-export * as plugins from "./plugins";
-export * as utils from "./utils";

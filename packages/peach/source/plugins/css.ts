@@ -1,5 +1,5 @@
 import CSS from "csstype";
-import { PeachCSSType } from "../type";
+import { PeachCSSType } from "../utils/type";
 import { ExtendedCSSStyleSheet } from "../utils/css-sheet";
 import { stringifyRules } from "../utils/stringify-css";
 import { hash as hashFn } from "../utils/hash";

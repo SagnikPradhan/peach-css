@@ -1,9 +1,14 @@
 {
   "name": "peach",
   "version": "0.0.0",
-  "main": "./dist/index.js",
+  "main": "./index.js",
   "files": [
-    "./dist"
+    "index.js",
+    "index.d.ts",
+    "index.js.map",
+    "plugins",
+    "utils",
+    "esm"
   ],
   "scripts": {
     "dev-esm": "yarn build-esm -w",

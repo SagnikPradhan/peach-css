@@ -2,11 +2,12 @@
   "extends": "../../../tsconfig.json",
 
   "include": ["../source/**/*"],
+  "exclude": ["../**/*.js", "../**/*.d.ts"],
 
   "compilerOptions": {
     "module": "commonjs",
 
-    "outDir": "../dist",
+    "outDir": "../",
 
     "declaration": true,
     "sourceMap": true

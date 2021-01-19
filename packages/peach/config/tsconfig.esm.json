@@ -6,7 +6,7 @@
   "compilerOptions": {
     "module": "es2020",
 
-    "outDir": "../dist/esm",
+    "outDir": "../esm",
 
     "declaration": true,
     "sourceMap": true
