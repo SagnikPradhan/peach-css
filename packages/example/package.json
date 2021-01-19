@@ -2,7 +2,8 @@
   "name": "example",
   "scripts": {
     "dev": "rollup -c -w",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "start": "yarn dlx serve public"
   },
   "dependencies": {
     "peach": "workspace:packages/peach",

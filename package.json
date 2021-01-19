@@ -1,6 +1,9 @@
 {
   "name": "peach-root",
   "private": true,
+  "scripts": {
+    "build": "yarn workspaces foreach run build"
+  },
   "workspaces": [
     "packages/*"
   ],

@@ -15,7 +15,8 @@
     "dev-cjs": "yarn build-cjs -w",
     "build-esm": "yarn tsc -p config/tsconfig.esm.json",
     "build-cjs": "yarn tsc -p config/tsconfig.cjs.json",
-    "build": "yarn run build-esm && yarn run build-cjs"
+    "build": "yarn build-esm && yarn build-cjs",
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "@types/concurrently": "^5",
