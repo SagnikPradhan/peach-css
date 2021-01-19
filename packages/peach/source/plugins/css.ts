@@ -8,12 +8,33 @@ type PluginCSS = CSS.Properties | CSS.PropertiesHyphen;
 
 const UPPERCASE_REGEX = /[A-Z]/g;
 
-type CSSFn = <CSSRule = PluginCSS>(
-  CSS: PeachCSSType<CSSRule>,
-  optionalSelector?: string
-) => { className: string };
-
-export function css(sheet: ExtendedCSSStyleSheet): { css: CSSFn } {
+/**
+ * CSS plugin for peach.
+ *
+ * @param sheet - Sheet
+ *
+ * @example ```js
+ *  const peach = PeachCSS.addPlugin(css)
+ *
+ *  const styles = peach.css({
+ *    fontSize: "10rem",
+ *    fontFamily: "sans-serif",
+ *    margin: "1rem",
+ *    color: "hotpink"
+ *  })
+ *
+ *  export const Component = () => (
+ *    <h1 className={styles.className}>Hey there!</h1>
+ *  )
+ * ```
+ */
+export function css(sheet: ExtendedCSSStyleSheet) {
+  /**
+   * Write css like you normally do with objects.
+   *
+   * @param CSS - Your css
+   * @param optionalSelector - Optional css selector
+   */
   function internalCSSFn<CSSRule = PluginCSS>(
     CSS: PeachCSSType<CSSRule>,
     optionalSelector?: string

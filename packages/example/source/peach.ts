@@ -1,4 +1,4 @@
-import peach from "peach";
-import { css } from "peach/plugins/css";
+import peach from "peachcss";
+import { css } from "peachcss/plugins/css";
 
 export default peach().addPlugin(css);

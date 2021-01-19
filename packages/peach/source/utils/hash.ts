@@ -1,3 +1,8 @@
+/**
+ * FNV hash
+ *
+ * @param string - String to be hashed
+ */
 export function hash(string: string) {
   const FNV_PRIME = 0x01000193;
   const FNV_OFFSET_BASIS = 0x811c9dc5;

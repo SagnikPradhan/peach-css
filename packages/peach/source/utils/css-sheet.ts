@@ -3,7 +3,7 @@ export class ExtendedCSSStyleSheet {
   /** Style element for sheet */
   public element: HTMLStyleElement;
 
-  /** Index where new rules is added */
+  /** Index where new rule is added */
   private newRuleIndex = 0;
 
   /** CSS Style sheet */
@@ -23,7 +23,7 @@ export class ExtendedCSSStyleSheet {
    * Add a new rule to the sheet
    *
    * @param selector - CSS selector
-   * @param content - CSS rules
+   * @param content - CSS rules. Use [[stringifyRules]] to generate the css string.
    * @param index - Optional index to be used for the rule
    */
   public addRule(selector: string, content: string, index = this.newRuleIndex) {
