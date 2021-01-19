@@ -1,11 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../../tsconfig.json",
+
+  "include": ["../source/**/*"],
 
   "compilerOptions": {
     "module": "es2020",
 
-    "rootDir": "source",
-    "outDir": "dist",
+    "outDir": "../dist/esm",
 
     "declaration": true,
     "sourceMap": true

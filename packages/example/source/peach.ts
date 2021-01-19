@@ -1,3 +1,3 @@
-import peach, { camelCasePlugin } from "peach";
+import peach, { plugins } from "peach";
 
-export default peach().addPlugin(camelCasePlugin);
+export default peach().addPlugin(plugins.css);
