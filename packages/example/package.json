@@ -6,7 +6,7 @@
     "start": "yarn dlx serve public"
   },
   "dependencies": {
-    "peach": "workspace:packages/peach",
+    "peachcss": "workspace:packages/peach",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

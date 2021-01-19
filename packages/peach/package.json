@@ -1,7 +1,9 @@
 {
-  "name": "peach",
-  "version": "0.0.0",
+  "name": "peachcss",
+  "version": "0.0.1",
   "main": "./index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
   "files": [
     "index.js",
     "index.d.ts",
