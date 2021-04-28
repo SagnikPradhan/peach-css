@@ -4,7 +4,11 @@ import { ExtendedCSSStyleSheet } from "../utils/css-sheet";
 import { stringifyRules } from "../utils/stringify-css";
 import { hash as hashFn } from "../utils/hash";
 
-type PluginCSS = CSS.Properties | CSS.PropertiesHyphen;
+type PluginCSS =
+  | CSS.Properties
+  | CSS.PropertiesHyphen
+  | CSS.PropertiesFallback
+  | CSS.PropertiesHyphenFallback;
 
 const UPPERCASE_REGEX = /[A-Z]/g;
 
